@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
+from datetime import timedelta
 
 from habits.models import Habit
 
@@ -11,15 +12,30 @@ class HabitSerializer(serializers.ModelSerializer):
         # validators = [VideoReferenceValidator(field="video_reference")]
 
     def validate(self, data):
-        if data.get('is_pleasant') is True and data.get('award') or data.get('related_field'):
-            raise ValidationError('У приятной привычки не может быть вознаграждения или связанной привычки.')
+        if data.get('is_pleasant'):
+            if data.get('award') or data.get('related_habit'):
+                raise ValidationError('У приятной привычки не может быть вознаграждения или связанной привычки.')
 
-        if data.get('is_pleasant') is False and data.get('related_habit') and data.get('award'):
-            raise ValidationError('У полезной привычки не могут быть одновременно связанная привычка и вознаграждение.')
+        else:
+            if data.get('related_habit') and data.get('award'):
+                raise ValidationError('У полезной привычки не могут быть одновременно связанная привычка и вознаграждение.')
 
-        if data.get('is_pleasant') is False and not data.get('time') or not data.get('place') or not data.get('time_to_complete'):
-            raise ValidationError('Для полезной привычки необходимо указать время, место, время на выполнение.')
+            elif not data.get('related_habit') or data.get('award'):
+                raise ValidationError('У полезной привычки должна быть связанная привычка или вознаграждение.')
 
+
+            elif not data.get('time') or not data.get('place') or not data.get('time_to_complete'):
+                raise ValidationError('Для полезной привычки необходимо указать время, место, время на выполнение.')
+
+            elif data.get('time_to_complete') > timedelta(seconds=120):
+                raise ValidationError('Время выполнения должно быть не больше 120 секунд.')
+
+            elif data.get('related_habit'):
+                id = data.get('related_habit').id
+                habit = Habit.objects.get(pk=id)
+
+                if habit.is_pleasant is False:
+                    raise ValidationError('В связанные привычки могут попадать только привычки с признаком приятной привычки.')
 
         return data
 
