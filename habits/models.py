@@ -41,7 +41,7 @@ class Habit(models.Model):
         related_name='habits',
         blank=True,
         null=True,
-    ),
+    )
     interval = models.PositiveSmallIntegerField(
         default=1,
         verbose_name='Периодичность',
@@ -54,9 +54,11 @@ class Habit(models.Model):
         blank=True,
         null=True,
     )
-    time_to_complete = models.PositiveSmallIntegerField(
+    time_to_complete = models.DurationField(
         verbose_name='Время на выполнение',
         help_text='Укажите время на выполнение',
+        blank=True,
+        null=True,
     )
     is_public = models.BooleanField(
         verbose_name='Является ли публичной',
