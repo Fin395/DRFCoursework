@@ -9,6 +9,8 @@ class Habit(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Пользователь',
         help_text='Укажите пользователя',
+        blank=True,
+        null=True,
     )
     place = models.CharField(
         max_length=150,

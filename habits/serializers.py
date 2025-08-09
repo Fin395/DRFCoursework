@@ -11,8 +11,11 @@ class HabitSerializer(serializers.ModelSerializer):
         # validators = [VideoReferenceValidator(field="video_reference")]
 
     def validate(self, data):
-        if data.get('related_habit') and data('reward'):
-            raise ValidationError('Поля related_habit и reward не могут быть одновременно заполнены')
+        if data.get('related_habit') and data('award'):
+            raise ValidationError('Поля related_habit и award не могут быть одновременно заполнены')
+        if data.get('is_pleasant') is True and data.get('award') or data.get('relared_field'):
+            raise ValidationError('У приятной привычки не может быть вознаграждения или связанной привычки.')
+        return data
 
 # class CourseSerializer(serializers.ModelSerializer):
 #     lessons_count = serializers.SerializerMethodField()
