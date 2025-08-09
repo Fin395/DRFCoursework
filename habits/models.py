@@ -59,7 +59,7 @@ class Habit(models.Model):
     )
     time_to_complete = models.DurationField(
         verbose_name='Время на выполнение',
-        help_text='Укажите время на выполнение',
+        help_text='Укажите время на выполнение в секундах',
         blank=True,
         null=True,
     )
@@ -74,4 +74,6 @@ class Habit(models.Model):
         verbose_name_plural = "Привычки"
 
     def __str__(self):
-        return f'Я буду {self.action} в {self.time} в {self.place}'
+        if self.time and self.place:
+            return f'Я буду {self.action} в {self.time} в {self.place}'
+        return f'{self.action}'
