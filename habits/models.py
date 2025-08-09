@@ -47,6 +47,8 @@ class Habit(models.Model):
         default=1,
         verbose_name='Периодичность',
         help_text='Укажите периодичность',
+        blank=True,
+        null=True,
     )
     award = models.CharField(
         max_length=150,
