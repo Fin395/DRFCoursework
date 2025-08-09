@@ -9,4 +9,7 @@ class HabitAdmin(admin.ModelAdmin):
         "id",
         "user",
         "action",
+        "is_pleasant",
+        "is_public",
+        "related_habit"
     )
