@@ -17,9 +17,8 @@ class Habit(models.Model):
         blank=True,
         null=True,
     )
-    time = models.DateTimeField(
-        auto_now_add=False,
-        auto_now=False,
+    time = models.CharField(
+        max_length=150,
         verbose_name='Время',
         help_text='Укажите время',
         blank=True,
