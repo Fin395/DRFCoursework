@@ -59,3 +59,12 @@ class HabitSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Course
 #         fields = "__all__"
+
+
+
+
+    # def __init__(self, *args, **kwargs):
+    #     user = kwargs.pop('user')
+    #     super(MailingForm, self).__init__(*args, **kwargs)
+    #     self.fields['recipient'].queryset = MailingRecipient.objects.filter(owner=user)
+    #     self.fields['message'].queryset = EmailMessage.objects.filter(owner=user)
