@@ -2,6 +2,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from habits.models import Habit
 from habits.serializers import HabitSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class HabitViewSet(ModelViewSet):
@@ -14,3 +15,17 @@ class HabitViewSet(ModelViewSet):
         if serializer.validated_data['is_pleasant'] is True:
             serializer.validated_data['interval'] = None
         serializer.save()
+
+    def get_queryset(self):
+        return Habit.objects.filter(user=self.request.user) and Habit.objects.filter(is_public=True)
+
+    # def get_permissions(self):
+    #     self.permission_classes = []
+    #     if self.action == "create":
+    #         self.permission_classes = [IsAuthenticated]
+    #     elif self.action in ["retrieve", "update", "partial_update"]:
+    #         self.permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+    #     elif self.action in ["destroy"]:
+    #         self.permission_classes = [IsAuthenticated, IsOwner]
+    #
+    #     return [permission() for permission in self.permission_classes]
