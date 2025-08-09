@@ -6,10 +6,21 @@ from habits.models import Habit
 
 
 class HabitSerializer(serializers.ModelSerializer):
+    related_habit = serializers.PrimaryKeyRelatedField(queryset=Habit.objects.none())
+
     class Meta:
         model = Habit
         fields = "__all__"
-        # validators = [VideoReferenceValidator(field="video_reference")]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and hasattr(request, "user"):
+            self.fields['related_habit'].queryset = Habit.objects.filter(
+                is_public=True
+            ) | Habit.objects.filter(
+                user=request.user
+            )
 
     def validate(self, data):
         if data.get('is_pleasant'):
@@ -38,33 +49,3 @@ class HabitSerializer(serializers.ModelSerializer):
                     raise ValidationError('В связанные привычки могут попадать только привычки с признаком приятной привычки.')
 
         return data
-
-# class CourseSerializer(serializers.ModelSerializer):
-#     lessons_count = serializers.SerializerMethodField()
-#     lessons_data = LessonSerializer(source="lessons", many=True, read_only=True)
-#     is_subscribed = serializers.SerializerMethodField()
-#
-#     def get_lessons_count(self, obj):
-#         return obj.lessons.count()
-#
-#     def get_is_subscribed(self, obj):
-#         course_subs = obj.subscriptions
-#         current_user = self.context["request"].user
-#
-#         if course_subs.filter(user=current_user).exists():
-#             return "подписка оформлена"
-#         else:
-#             return "подписка не оформлена"
-#
-#     class Meta:
-#         model = Course
-#         fields = "__all__"
-
-
-
-
-    # def __init__(self, *args, **kwargs):
-    #     user = kwargs.pop('user')
-    #     super(MailingForm, self).__init__(*args, **kwargs)
-    #     self.fields['recipient'].queryset = MailingRecipient.objects.filter(owner=user)
-    #     self.fields['message'].queryset = EmailMessage.objects.filter(owner=user)
