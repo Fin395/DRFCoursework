@@ -73,13 +73,13 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://127.0.0.1:8000",
+    os.getenv('CORS_ALLOWED_ORIGINS_1'),
+    os.getenv('CORS_ALLOWED_ORIGINS_2'),
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8080",
-    "http://127.0.0.1:8000",
+    os.getenv('CSRF_TRUSTED_ORIGINS_1'),
+    os.getenv('CSRF_TRUSTED_ORIGINS_2'),
 ]
 
 CORS_ALLOW_ALL_ORIGINS = False
@@ -128,3 +128,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
 
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
+
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
+
+CELERY_TIMEZONE = TIME_ZONE
+
+CELERY_TASK_TRACK_STARTED = True
+
+CELERY_TASK_TIME_LIMIT = 30 * 60
