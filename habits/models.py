@@ -47,7 +47,7 @@ class Habit(models.Model):
     interval = models.PositiveSmallIntegerField(
         default=1,
         verbose_name='Периодичность',
-        help_text='Укажите периодичность',
+        help_text='Укажите периодичность в днях',
         blank=True,
         null=True,
     )

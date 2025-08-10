@@ -46,11 +46,14 @@ class HabitSerializer(serializers.ModelSerializer):
             elif not current_data.get('related_habit') and not current_data.get('award'):
                 raise ValidationError('У полезной привычки должна быть связанная привычка или вознаграждение.')
 
-            elif not current_data.get('time') or not current_data.get('place') or not current_data.get('time_to_complete'):
-                raise ValidationError('Для полезной привычки необходимо указать время, место, время на выполнение.')
+            elif not current_data.get('time') or not current_data.get('place') or not current_data.get('time_to_complete') or not current_data.get('interval'):
+                raise ValidationError('Для полезной привычки необходимо указать время, место, время на выполнение, интервал.')
 
             elif current_data.get('time_to_complete') > timedelta(seconds=120):
                 raise ValidationError('Время выполнения должно быть не больше 120 секунд.')
+
+            elif current_data.get('interval') == 0 or current_data.get('interval') > 7:
+                raise ValidationError('Периодичность выполнения не должна быть равна 0 или более 7.')
 
             elif current_data.get('related_habit'):
                 related_habit_id = current_data.get('related_habit').id
