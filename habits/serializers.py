@@ -60,3 +60,9 @@ class HabitSerializer(serializers.ModelSerializer):
                     raise ValidationError('В связанные привычки могут попадать только привычки с признаком приятной привычки.')
 
         return current_data
+
+
+class HabitReducedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Habit
+        fields = ['id', 'action', 'time', 'time_to_complete', 'interval']

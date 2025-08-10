@@ -8,7 +8,7 @@ app_name = HabitsConfig.name
 router = DefaultRouter()
 router.register(r"habit", HabitViewSet, basename="habit")
 urlpatterns = [
-    path('public-habit/', PublicHabitListAPIView.as_view(), name="public-habit-list"),
+    path('habit/public/', PublicHabitListAPIView.as_view(), name="public-habit-list"),
     # path("lesson/", LessonListAPIView.as_view(), name="lesson-list"),
     # path("lesson/<int:pk>/", LessonRetrieveAPIView.as_view(), name="lesson-get"),
     # path(
