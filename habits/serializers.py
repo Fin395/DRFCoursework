@@ -6,7 +6,6 @@ from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 
 from habits.models import Habit
-from users.models import User
 
 
 class HabitSerializer(serializers.ModelSerializer):
