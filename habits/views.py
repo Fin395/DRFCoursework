@@ -1,7 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import generics
 
-
 from habits.models import Habit
 from habits.paginators import HabitPagination
 from habits.serializers import HabitSerializer, HabitReducedSerializer

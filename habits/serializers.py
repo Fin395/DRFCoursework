@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 from datetime import timedelta
 from django.forms.models import model_to_dict
-
+from django.db.models import Q
 from habits.models import Habit
 from users.models import User
 
@@ -19,11 +19,7 @@ class HabitSerializer(serializers.ModelSerializer):
         super().__init__(*args, **kwargs)
         request = self.context.get('request')
         if request and hasattr(request, "user"):
-            self.fields['related_habit'].queryset = Habit.objects.filter(
-                is_public=True
-            ) | Habit.objects.filter(
-                user=request.user
-            )
+            self.fields['related_habit'].queryset = Habit.objects.filter(Q(is_public=True) | Q(user=request.user))
 
     def validate(self, data):
         instance = getattr(self, 'instance', None)
@@ -46,14 +42,15 @@ class HabitSerializer(serializers.ModelSerializer):
             elif not current_data.get('related_habit') and not current_data.get('award'):
                 raise ValidationError('У полезной привычки должна быть связанная привычка или вознаграждение.')
 
-            elif not current_data.get('time') or not current_data.get('place') or not current_data.get('time_to_complete') or not current_data.get('interval'):
-                raise ValidationError('Для полезной привычки необходимо указать время, место, время на выполнение, интервал.')
+            elif not current_data.get('time') or not current_data.get('place') or not current_data.get('time_to_complete'):
+                raise ValidationError('Для полезной привычки необходимо указать время, место, время на выполнение.')
 
             elif current_data.get('time_to_complete') > timedelta(seconds=120):
                 raise ValidationError('Время выполнения должно быть не больше 120 секунд.')
 
-            elif current_data.get('interval') == 0 or current_data.get('interval') > 7:
-                raise ValidationError('Периодичность выполнения не должна быть равна 0 или более 7.')
+            elif current_data.get('interval'):
+                if current_data.get('interval') == 0 or current_data.get('interval') > 7:
+                    raise ValidationError('Периодичность выполнения не должна быть равна 0 или более 7.')
 
             elif current_data.get('related_habit'):
                 related_habit_id = current_data.get('related_habit').id
