@@ -6,6 +6,7 @@ from habits.paginators import HabitPagination
 from habits.serializers import HabitSerializer, HabitReducedSerializer
 from rest_framework.permissions import IsAuthenticated
 
+from habits.tasks import my_task
 from users.permissions import IsOwner
 
 
@@ -18,6 +19,7 @@ class HabitViewSet(ModelViewSet):
         if serializer.validated_data['is_pleasant'] is True:
             serializer.validated_data['interval'] = None
         serializer.save()
+        # my_task.delay()
 
     def get_queryset(self):
         return Habit.objects.filter(user=self.request.user)
