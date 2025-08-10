@@ -4,6 +4,7 @@ from datetime import timedelta
 from django.forms.models import model_to_dict
 
 from habits.models import Habit
+from users.models import User
 
 
 class HabitSerializer(serializers.ModelSerializer):
@@ -12,6 +13,7 @@ class HabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habit
         fields = "__all__"
+        read_only_fields = ('user',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,8 +28,13 @@ class HabitSerializer(serializers.ModelSerializer):
     def validate(self, data):
         instance = getattr(self, 'instance', None)
         if instance:
+
             current_data = model_to_dict(instance)
             current_data.update(data)
+            current_data.pop('user')
+
+
+
         else:
             current_data = data
 
@@ -48,8 +55,10 @@ class HabitSerializer(serializers.ModelSerializer):
                 raise ValidationError('Время выполнения должно быть не больше 120 секунд.')
 
             elif current_data.get('related_habit'):
-                id = current_data.get('related_habit').id
-                habit = Habit.objects.get(pk=id)
+
+
+                related_habit_id = current_data.get('related_habit').id
+                habit = Habit.objects.get(pk=related_habit_id)
 
                 if habit.is_pleasant is False:
                     raise ValidationError('В связанные привычки могут попадать только привычки с признаком приятной привычки.')
