@@ -6,7 +6,7 @@ from habits.paginators import HabitPagination
 from habits.serializers import HabitSerializer, HabitReducedSerializer
 from rest_framework.permissions import IsAuthenticated
 
-from habits.tasks import my_task
+# from habits.tasks import my_task
 from users.permissions import IsOwner
 
 
