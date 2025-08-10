@@ -36,7 +36,7 @@ class HabitViewSet(ModelViewSet):
 class PublicHabitListAPIView(generics.ListAPIView):
     serializer_class = HabitSerializer
     pagination_class = HabitPagination
-    permission_classes = IsAuthenticated
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Habit.objects.filter(is_public=True)
