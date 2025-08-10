@@ -9,7 +9,6 @@ from users.permissions import IsOwner
 
 class HabitViewSet(ModelViewSet):
     serializer_class = HabitSerializer
-    queryset = Habit.objects.all()
     # pagination_class = CustomPagination
 
     def perform_create(self, serializer):
@@ -19,7 +18,7 @@ class HabitViewSet(ModelViewSet):
         serializer.save()
 
     def get_queryset(self):
-        return Habit.objects.filter(user=self.request.user) or Habit.objects.filter(is_public=True)
+        return Habit.objects.filter(user=self.request.user) and Habit.objects.filter(is_public=True)
 
     def get_permissions(self):
         self.permission_classes = []

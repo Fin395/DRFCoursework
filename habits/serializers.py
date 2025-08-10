@@ -27,13 +27,11 @@ class HabitSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         instance = getattr(self, 'instance', None)
-        if instance:
 
+        if instance:
             current_data = model_to_dict(instance)
             current_data.update(data)
             current_data.pop('user')
-
-
 
         else:
             current_data = data
@@ -55,8 +53,6 @@ class HabitSerializer(serializers.ModelSerializer):
                 raise ValidationError('Время выполнения должно быть не больше 120 секунд.')
 
             elif current_data.get('related_habit'):
-
-
                 related_habit_id = current_data.get('related_habit').id
                 habit = Habit.objects.get(pk=related_habit_id)
 
