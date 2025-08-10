@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('habits', '0006_alter_habit_interval'),
+        ("habits", "0006_alter_habit_interval"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='habit',
-            name='time_to_complete',
-            field=models.DurationField(blank=True, help_text='Укажите время на выполнение в секундах', null=True, verbose_name='Время на выполнение'),
+            model_name="habit",
+            name="time_to_complete",
+            field=models.DurationField(
+                blank=True,
+                help_text="Укажите время на выполнение в секундах",
+                null=True,
+                verbose_name="Время на выполнение",
+            ),
         ),
     ]

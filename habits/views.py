@@ -1,11 +1,10 @@
-from rest_framework.viewsets import ModelViewSet
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 
 from habits.models import Habit
 from habits.paginators import HabitPagination
-from habits.serializers import HabitSerializer, HabitReducedSerializer
-from rest_framework.permissions import IsAuthenticated
-
+from habits.serializers import HabitReducedSerializer, HabitSerializer
 # from habits.tasks import my_task
 from users.permissions import IsOwner
 
@@ -15,9 +14,9 @@ class HabitViewSet(ModelViewSet):
     pagination_class = HabitPagination
 
     def perform_create(self, serializer):
-        serializer.validated_data['user'] = self.request.user
-        if serializer.validated_data['is_pleasant'] is True:
-            serializer.validated_data['interval'] = None
+        serializer.validated_data["user"] = self.request.user
+        if serializer.validated_data["is_pleasant"] is True:
+            serializer.validated_data["interval"] = None
         serializer.save()
         # my_task.delay()
 

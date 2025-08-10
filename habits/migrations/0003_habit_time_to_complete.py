@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('habits', '0002_remove_habit_time_to_complete_habit_related_habit'),
+        ("habits", "0002_remove_habit_time_to_complete_habit_related_habit"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='habit',
-            name='time_to_complete',
-            field=models.DurationField(blank=True, help_text='Укажите время на выполнение', null=True, verbose_name='Время на выполнение'),
+            model_name="habit",
+            name="time_to_complete",
+            field=models.DurationField(
+                blank=True,
+                help_text="Укажите время на выполнение",
+                null=True,
+                verbose_name="Время на выполнение",
+            ),
         ),
     ]

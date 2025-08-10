@@ -15,22 +15,96 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Habit',
+            name="Habit",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('place', models.CharField(blank=True, help_text='Укажите место', max_length=150, null=True, verbose_name='Место')),
-                ('time', models.DateTimeField(blank=True, help_text='Укажите время', null=True, verbose_name='Время')),
-                ('action', models.CharField(help_text='Укажите действие', max_length=250, verbose_name='Действие')),
-                ('is_pleasant', models.BooleanField(help_text='Укажите, является ли приятной привычкой', verbose_name='Является ли приятной привычкой')),
-                ('interval', models.PositiveSmallIntegerField(default=1, help_text='Укажите периодичность', verbose_name='Периодичность')),
-                ('award', models.CharField(blank=True, help_text='Укажите вознаграждение', max_length=150, null=True, verbose_name='Вознаграждение')),
-                ('time_to_complete', models.PositiveSmallIntegerField(help_text='Укажите время на выполнение', verbose_name='Время на выполнение')),
-                ('is_public', models.BooleanField(help_text='Укажите, является ли привычка публичной', verbose_name='Является ли публичной')),
-                ('user', models.ForeignKey(help_text='Укажите пользователя', on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "place",
+                    models.CharField(
+                        blank=True,
+                        help_text="Укажите место",
+                        max_length=150,
+                        null=True,
+                        verbose_name="Место",
+                    ),
+                ),
+                (
+                    "time",
+                    models.DateTimeField(
+                        blank=True,
+                        help_text="Укажите время",
+                        null=True,
+                        verbose_name="Время",
+                    ),
+                ),
+                (
+                    "action",
+                    models.CharField(
+                        help_text="Укажите действие",
+                        max_length=250,
+                        verbose_name="Действие",
+                    ),
+                ),
+                (
+                    "is_pleasant",
+                    models.BooleanField(
+                        help_text="Укажите, является ли приятной привычкой",
+                        verbose_name="Является ли приятной привычкой",
+                    ),
+                ),
+                (
+                    "interval",
+                    models.PositiveSmallIntegerField(
+                        default=1,
+                        help_text="Укажите периодичность",
+                        verbose_name="Периодичность",
+                    ),
+                ),
+                (
+                    "award",
+                    models.CharField(
+                        blank=True,
+                        help_text="Укажите вознаграждение",
+                        max_length=150,
+                        null=True,
+                        verbose_name="Вознаграждение",
+                    ),
+                ),
+                (
+                    "time_to_complete",
+                    models.PositiveSmallIntegerField(
+                        help_text="Укажите время на выполнение",
+                        verbose_name="Время на выполнение",
+                    ),
+                ),
+                (
+                    "is_public",
+                    models.BooleanField(
+                        help_text="Укажите, является ли привычка публичной",
+                        verbose_name="Является ли публичной",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        help_text="Укажите пользователя",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Пользователь",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Привычка',
-                'verbose_name_plural': 'Привычки',
+                "verbose_name": "Привычка",
+                "verbose_name_plural": "Привычки",
             },
         ),
     ]

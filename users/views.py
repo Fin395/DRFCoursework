@@ -7,8 +7,7 @@ from users.models import User
 from users.permissions import IsProfileOwner
 # from users.models import User
 # from users.permissions import IsProfileOwner
-from users.serializers import UserSerializer, UserReducedSerializer
-
+from users.serializers import UserReducedSerializer, UserSerializer
 
 # from rest_framework.permissions import IsAuthenticated
 
@@ -30,9 +29,9 @@ class UserUpdateAPIView(generics.UpdateAPIView):
 
 
 class UserRetrieveAPIView(generics.RetrieveAPIView):
-     serializer_class = UserSerializer
-     queryset = User.objects.all()
-     permission_classes = [IsAuthenticated, IsProfileOwner]
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = [IsAuthenticated, IsProfileOwner]
 
 
 class UserListAPIView(generics.ListAPIView):

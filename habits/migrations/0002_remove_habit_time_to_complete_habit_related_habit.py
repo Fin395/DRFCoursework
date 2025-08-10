@@ -7,17 +7,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('habits', '0001_initial'),
+        ("habits", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='habit',
-            name='time_to_complete',
+            model_name="habit",
+            name="time_to_complete",
         ),
         migrations.AddField(
-            model_name='habit',
-            name='related_habit',
-            field=models.ForeignKey(blank=True, help_text='Укажите связанную привычку', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='habits', to='habits.habit', verbose_name='Связанная привычка'),
+            model_name="habit",
+            name="related_habit",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Укажите связанную привычку",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="habits",
+                to="habits.habit",
+                verbose_name="Связанная привычка",
+            ),
         ),
     ]
