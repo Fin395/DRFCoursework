@@ -140,7 +140,7 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 CELERY_BEAT_SCHEDULE = {
     "task-name": {
-        "task": "users.tasks.send_tg_notification",
+        "task": "habits.tasks.send_tg_notification",
         "schedule": timedelta(days=1),
     },
 }
