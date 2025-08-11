@@ -1,0 +1,17 @@
+[report]
+omit =
+    */migrations/*
+    */commands/*
+    */asgi.py
+    */wsgi.py
+    */settings.py
+    */tests/*
+    */config/*
+    */management/*
+    */apps/*
+    */paginators/*
+    */tests/*
+    */urls/*
+    */admin/*
+
+
